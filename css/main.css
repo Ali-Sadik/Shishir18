@@ -1205,7 +1205,7 @@ input::-moz-focus-inner {
 header {
   position: fixed;
   top: 1%;
-  left: -24%;
+  left: -14%;
   width: 100%;
   min-height: 66px;
   z-index: 600;
