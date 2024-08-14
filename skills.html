@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills</title>
+    <style>
+        body {
+            background-color: #0d0d0d;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            overflow-y: hidden;
+        }
+
+        .media-images {
+            margin: 2rem;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 90%;
+            margin: auto;
+            margin-top: -10px;
+            gap: 1rem; /* Increased gap for better spacing */
+        }
+
+        .media-images__image {
+            margin: 1rem;
+            width: 8rem; /* Increased width to double the size */
+            transition: transform 0.3s ease; /* Add a hover effect */
+        }
+
+        .media-images__image:hover {
+            transform: scale(1.1); /* Slightly enlarge on hover */
+        }
+
+        @media (max-width: 768px) {
+            .media-images__image {
+                width: 6rem; /* Adjust width for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <ul class="media-images">
+        <li class="media-images__item">
+            <img class="media-images__image" style="width: 10rem;" src="images/pylogo.png" alt="Python" />
+        </li>
+        <li class="media-images__item">
+            <img class="media-images__image" style="width: 10rem;" src="images/matlab.png" alt="Matlab" />
+        </li>
+        <li class="media-images__item">
+            <img class="media-images__image" style="width: 4rem;" src="images/C_Programming_Language.svg" alt="C Programming Language" />
+        </li>
+        <li class="media-images__item">
+            <img class="media-images__image" src="images/dv.jpg" alt="Data" />
+        </li>
+        <li class="media-images__item">
+            <img class="media-images__image" src="images/ds.png" alt="Data Science" />
+        </li>
+        <li class="media-images__item">
+            <img class="media-images__image" style="width: 10rem;" src="images/ml-Photoroom.png" alt="Machine Learning" />
+        </li>
+        <li class="media-images__item">
+            <img class="media-images__image" style="width: 6rem;" src="images/image.png" alt="Pandas" />
+        </li>
+        <li class="media-images__item">
+            <img class="media-images__image" style="width: 4rem;" src="images/911_c_logo.png" alt="C++" />
+        </li>
+        <li class="media-images__item">
+            <img class="media-images__image" style="width: 10rem;" src="images/seaborn.svg" alt="Seaborn" />
+        </li>
+        <li class="media-images__item">
+            <img class="media-images__image" src="images/git.png" alt="Git" />
+        </li>
+        <li class="media-images__item">
+            <img class="media-images__image" src="images/matplot.png" alt="Matplotlib" />
+        </li>
+        <li class="media-images__item">
+            <img class="media-images__image" style="width: 9rem;" src="images/ipadd.jpg" alt="Ip" />
+        </li>
+        <li class="media-images__item">
+            <img class="media-images__image" style="width: 7rem;" src="images/sub.jpg" alt="Subnetting" />
+        </li>
+        <li class="media-images__item">
+            <img class="media-images__image" style="width: 9rem;" src="images/sql.png" alt="SQL" />
+        </li>
+        <li class="media-images__item">
+            <img class="media-images__image" style="width: 10rem;" src="images/SQLite370.svg" alt="SQLite" />
+        </li>
+    </ul>
+    <script>
+        (function() {
+            "use strict";
+
+            window.onload = function() {
+                var images = document.querySelectorAll(".media-images .media-images__image");
+
+                function adjustImageWidth(image) {
+                    var widthBase   = 200; // Doubled width base
+                    var scaleFactor = 0.525;
+                    var imageRatio  = image.naturalWidth / image.naturalHeight;
+
+                    image.width = Math.pow(imageRatio, scaleFactor) * widthBase;
+                }
+
+                images.forEach(adjustImageWidth);
+            };
+        }());
+    </script>
+</body>
+</html>
