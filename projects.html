@@ -72,7 +72,11 @@
 
       .container_projects__c__1:hover {
         transform: scale(1.03);
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 3px #00ffa3;
+      }
+
+      .container_projects__c__1:hover h2{
+        color: #00ffa3;
       }
 
       /* Gradient Overlay */
@@ -94,6 +98,7 @@
         font-size: 1.5rem;
         margin: 0;
         user-select: none;
+        transition: color 0.3s ease;
       }
 
       .enlace__git__1 {
@@ -219,6 +224,48 @@
         visibility: visible; /* Show the text */
         opacity: 1; /* Make the text fully visible */
       }
+
+      @layer animation.reveal {
+  .left-an {
+    opacity: 0;
+  }
+  .reveal-left {
+    animation: fade-in 1s ease forwards,
+      slide-left 1.5s cubic-bezier(0.1, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes fade-in {
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes slide-left {
+    from {
+      transform: translateX(-100px);
+    }
+  }
+}
+
+@layer animation.reveal {
+  .right-an {
+    opacity: 0;
+  }
+  .reveal-right {
+    animation: fade-in 1s ease forwards,
+      slide-right 1.5s cubic-bezier(0.1, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes fade-in {
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes slide-right {
+    from {
+      transform: translateX(100px);
+    }
+  }
+}
     </style>
   </head>
   <body>
@@ -542,5 +589,39 @@
         </div>
       </div>
     </div>
+    <script>
+      function addRevealEffect(elements, animationClass, customClass = null) {
+        const observer = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                if (customClass) {
+                  entry.target.classList.add(customClass);
+                }
+                entry.target.classList.add(animationClass, "revealed");
+                // Unobserve the element after the first intersection
+                observer.unobserve(entry.target);
+              } else {
+                // Optionally, you can remove the class when not intersecting
+                if (customClass) {
+                  entry.target.className = customClass;
+                }
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        elements.forEach((element) => {
+          observer.observe(element);
+        });
+      }
+      const leftSectionElements = document.querySelectorAll(".left-an");
+      addRevealEffect(leftSectionElements, "reveal-left", "left-an");
+
+      // Apply separate animations
+      const rightSectionElements = document.querySelectorAll(".right-an");
+      addRevealEffect(rightSectionElements, "reveal-right", "right-an");
+    </script>
   </body>
 </html>
