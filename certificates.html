@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Certificate Gallery</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Manrope:300,400,700"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Manrope", sans-serif;
+        background-color: #0d0d0d;
+        margin: 0;
+        padding: 20px;
+        overflow-y: hidden;
+      }
+
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
+      }
+
+      .certificate {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+        aspect-ratio: 4 / 3; /* Set aspect ratio for all certificates */
+        background-color: #0d0d0d; /* Ensures background behind image is black */
+      }
+
+      .certificate img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensures the image covers the whole card */
+        display: block;
+        margin-top: 0; /* Reset margin to avoid extra space */
+        clip-path: inset(0); /* No clipping for the image */
+      }
+
+      .certificate p {
+        position: absolute;
+        font-size: 20px;
+        bottom: 0; /* Changed to bottom for better visibility */
+        width: 100%;
+        text-align: center;
+        color: white;
+        background: rgba(0, 0, 0, 0.6); /* Slight background for better readability */
+        margin: 0;
+        padding: 5px 0;
+        transition: color 0.3s ease;
+      }
+
+      .certificate:hover {
+        opacity: 0.8;
+      }
+
+      .certificate:hover p {
+        color: #00ffa3;
+      }
+
+      .certificate p::after {
+        content: "";
+        display: block;
+        margin: 0 auto;
+        height: 2px;
+        width: 0;
+        background: #00ffa3;
+        transition: width 0.3s ease;
+      }
+
+      .certificate:hover p::after {
+        width: 70%;
+      }
+
+      @media (max-width: 768px) {
+        .gallery {
+          grid-template-columns: 1fr;
+        }
+
+        .certificate {
+          transform: scale(1);
+        }
+        .certificate p {
+          font-size: 15px;
+        }
+        .certificate img {
+          clip-path: inset(0);
+        }
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+        transition: opacity 0.3s ease;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-content {
+        margin: auto;
+        display: block;
+        width: 120%;
+        max-width: 1050px;
+        animation-name: zoom;
+        animation-duration: 0.3s;
+      }
+
+      @keyframes zoom {
+        from {
+          transform: scale(0.8);
+        }
+        to {
+          transform: scale(1);
+        }
+      }
+
+      .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #ffffff;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+        cursor: pointer;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #d4af37;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      @media (max-width: 768px) {
+        .modal-content {
+          width: 90%;
+          max-width: 90%;
+        }
+
+        .close {
+          font-size: 30px;
+          top: 10px;
+          right: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gallery">
+      <div class="certificate">
+        <img
+          src="images/portfolio/data science.png"
+          alt="Certificate 1"
+          data-modal
+        />
+        <p>Data Scientist with Python Track</p>
+      </div>
+      <div class="certificate">
+        <img src="images/portfolio/mll.png" alt="Certificate 1" data-modal />
+        <p>Supervised Machine Learning (deeplearning.ai) – Coursera</p>
+      </div>
+      <div class="certificate">
+        <img
+          src="images/portfolio/machine funda.png"
+          alt="Certificate 2"
+          data-modal
+        />
+        <p>Machine Learning Fundamentals with Python</p>
+      </div>
+      <div class="certificate">
+        <img src="images/portfolio/sql.png" alt="Certificate 5" data-modal />
+        <p>SQL Essential Training (2019)</p>
+      </div>
+      <div class="certificate">
+        <img
+          src="images/portfolio/computer.png"
+          alt="Certificate 3"
+          data-modal
+        />
+        <p>Mathematical Thinking in Computer Science</p>
+      </div>
+      <div class="certificate">
+        <img
+          src="images/portfolio/discretemath.jpg"
+          alt="Certificate 4"
+          data-modal
+        />
+        <p>Introduction to Discrete Mathematics for Computer Science</p>
+      </div>
+
+      <div class="certificate">
+        <img src="images/portfolio/udemy.jpg" alt="Certificate 6" data-modal />
+        <p>IP Addressing and Subnetting - Zero to Hero</p>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+      <span class="close">&times;</span>
+      <img class="modal-content" id="modalImage" />
+    </div>
+
+    <script>
+      // Get the modal
+      const modal = document.getElementById("modal");
+
+      // Get the modal image and the image element inside the modal
+      const modalImage = document.getElementById("modalImage");
+
+      // Get the <span> element that closes the modal
+      const closeModal = document.getElementsByClassName("close")[0];
+
+      // Add click event listeners to all images with data-modal attribute
+      document.querySelectorAll("img[data-modal]").forEach((img) => {
+        img.addEventListener("click", function () {
+          // Display the modal
+          modal.style.display = "flex";
+
+          // Set the modal image source to the clicked image source
+          modalImage.src = this.src;
+        });
+      });
+
+      // When the user clicks on <span> (x), close the modal
+      closeModal.onclick = function () {
+        modal.style.display = "none";
+      };
+
+      // When the user clicks anywhere outside of the modal image, close it
+      modal.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      // Check for unnecessary modal opening on page load
+      window.onload = function () {
+        if (modal.style.display === "flex") {
+          modal.style.display = "none";
+        }
+      };
+    </script>
+  </body>
+</html>
