@@ -2842,7 +2842,8 @@ footer .copyright span:last-child::after {
 .divider-container {
   position: relative;
   background-color: transparent;
-  height: 2px;
+  height: 4px;
+  overflow: hidden; /* Ensures the animation doesn't spill out */
 }
 
 .divider {
@@ -2850,11 +2851,28 @@ footer .copyright span:last-child::after {
   top: 50%;
   left: 0;
   right: 0;
-  height: 2px; /* Height of the flare effect */
+  height: 4px; /* Height of the flare effect */
   background: linear-gradient(to right, transparent, #00ffa3, transparent);
+  background-size: 200% 100%; /* Creates the effect of a seamless repeat */
   border-radius: 50%;
   transform: translateY(-50%);
+  animation: flow 4s linear infinite; /* Animation with bidirectional flow */
 }
+
+@keyframes flow {
+  0% {
+      background-position: 0% 0%; /* Start from the left */
+  }
+  50% {
+      background-position: 100% 0%; /* Move to the right */
+  }
+  100% {
+      background-position: 0% 0%; /* Move back to the left */
+  }
+}
+
+
+
 
 .grad {
   background: linear-gradient(to right, #007a52, #00ffa3);
@@ -2865,11 +2883,6 @@ footer .copyright span:last-child::after {
   .up{
     opacity: 0;
   }
-  .reveal-up {
-    animation: fade-in 1s ease forwards,
-      slide-up 1.5s cubic-bezier(0, 0, 0.1, 2) forwards;
-  }
-
   .reveal-down {
     animation: fade-in 1s ease forwards,
       slide-down 1.5s cubic-bezier(0, 0, 0.1, 1) forwards;
@@ -2880,13 +2893,6 @@ footer .copyright span:last-child::after {
       opacity: 1;
     }
   }
-
-  @keyframes slide-up {
-    from {
-      transform: translateY(-100px);
-    }
-  }
-
   @keyframes slide-down {
     from {
       transform: translateY(100px);
@@ -2894,42 +2900,89 @@ footer .copyright span:last-child::after {
   }
 }
 
-
-@media(width <768px)
-{
-  .left{
+@layer animation.reveal {
+  .left-an {
     opacity: 0;
   }
-  
-  .reveal-right {
-    animation: slide-right 1.5s cubic-bezier(0, 0, 0.1, 1) forwards;
-  }
-  
   .reveal-left {
-    animation: slide-left 1.5s cubic-bezier(0, 0, 0.1, 1) forwards;
+    animation: fade-in 1s ease forwards,
+      slide-left 1.5s cubic-bezier(0.1, 0, 0.2, 1) forwards;
   }
-  
+
+  @keyframes fade-in {
+    to {
+      opacity: 1;
+    }
+  }
   @keyframes slide-left {
     from {
-      transform: translateX(-50%);
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-  
-  @keyframes slide-right {
-    from {
-      transform: translateX(-40%);
-      opacity: 0; /* Ensure opacity is set to 0 at the start */
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
+      transform: translateX(-100px);
     }
   }
 }
+
+@layer animation.reveal {
+  .right-an {
+    opacity: 0;
+  }
+  .reveal-right {
+    animation: fade-in 1s ease forwards,
+      slide-right 1.5s cubic-bezier(0.1, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes fade-in {
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes slide-right {
+    from {
+      transform: translateX(100px);
+    }
+  }
+}
+
+
+
+@media (max-width: 768px) {
+
+  @layer animation.reveal{
+    .left {
+      opacity: 0;
+    }
+  
+    .reveal-right {
+      animation: slide-right 1.5s cubic-bezier(0, 0, 0.1, 1) forwards;
+    }
+  
+    .reveal-left {
+      animation: slide-left 1.5s cubic-bezier(0, 0, 0.1, 1) forwards;
+    }
+  
+    @keyframes slide-left {
+      from {
+        transform: translateX(-50%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  
+    @keyframes slide-right {
+      from {
+        transform: translateX(40%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  }
+}
+
 
 
 .leads{
@@ -2956,15 +3009,16 @@ footer .copyright span:last-child::after {
   height: 800px;
 }
 .i4{
-  height: 850px;
+  height: 800px;
 }
 
 .i5{
   height: 1000px;
-  margin-top: 40px;
+  margin-top: -40px;
 }
 .i6{
   height: 2000px;
+  margin-top: -40px;
 }
 
 .i3{
@@ -2989,4 +3043,27 @@ footer .copyright span:last-child::after {
 }
 
 
+.gradient-text {
+  display: inline-block;
+  font-size: 2rem; /* Adjust the font size as needed */
+  font-weight: bold; /* Adjust text weight if desired */
+  color: transparent; /* Hide the text color */
+  background: linear-gradient(to right, transparent, #00ffa3, transparent);
+  background-clip: text; /* Clip the background to the text */
+  -webkit-background-clip: text; /* For WebKit browsers */
+  background-size: 200% 100%; /* Creates the effect of a seamless repeat */
+  animation: flow-text 4s linear infinite; /* Animation with bidirectional flow */
+}
+
+@keyframes flow-text {
+  0% {
+      background-position: 0% 0%; /* Start from the left */
+  }
+  50% {
+      background-position: 100% 0%; /* Move to the right */
+  }
+  100% {
+      background-position: 0% 0%; /* Move back to the left */
+  }
+}
 
