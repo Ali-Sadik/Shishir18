@@ -1199,6 +1199,26 @@
 .fa-instagram:before {
   content: "\f16d";
 }
+/* For the regular envelope icon */
+.fa-envelope:before {
+  content: "\f0e0";
+}
+
+/* For the solid envelope icon */
+.fa-envelope-solid:before {
+  content: "\f0e0";
+}
+
+/* For the open envelope icon */
+.fa-envelope-open:before {
+  content: "\f2b6";
+}
+
+/* For the paper plane icon */
+.fa-paper-plane:before {
+  content: "\f1d8";
+}
+
 .fa-flickr:before {
   content: "\f16e";
 }
